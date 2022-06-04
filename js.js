@@ -69,7 +69,7 @@ function playGame() {
     roundResult.textContent = `Player score: ${playerScore} || Computer score: ${computerScore}`;
     roundsPara.textContent = `Rounds left: ${roundsLeft}`;
   }
-  roundResult.textContent = `Total Player score: ${playerScore}
+  roundResult.textContent = `Total Player score: ${playerScore} ||
   Total Computer score: ${computerScore}`;
   if (playerScore > computerScore) {
     gameResult.textContent = "Congratulations! You've won!";
