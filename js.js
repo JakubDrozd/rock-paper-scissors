@@ -1,30 +1,30 @@
 function playerPlay(choice) {
-  let decisionToSmallLetters = choice.toLowerCase();
-  if (!decisionToSmallLetters) {
+  let choiceFormat = choice.toLowerCase();
+  if (!choiceFormat) {
     alert("Error");
   } else if (
-    decisionToSmallLetters != "rock" &&
-    decisionToSmallLetters != "paper" &&
-    decisionToSmallLetters != "scissors"
+    choiceFormat != "rock" &&
+    choiceFormat != "paper" &&
+    choiceFormat != "scissors"
   ) {
     alert(`Must be a rock, paper or scissors`);
   }
-  if (decisionToSmallLetters === "rock") {
+  if (choiceFormat === "rock") {
     return "rock";
-  } else if (decisionToSmallLetters === "paper") {
+  } else if (choiceFormat === "paper") {
     return "paper";
-  } else if (decisionToSmallLetters === "scissors") {
+  } else if (choiceFormat === "scissors") {
     return "scissors";
   }
 }
 
 function computerPlay() {
-  let randomNumber = Math.floor(Math.random() * (4 - 1) + 1);
-  if (randomNumber === 1) {
+  let computerChoice = Math.floor(Math.random() * (4 - 1) + 1);
+  if (computerChoice === 1) {
     return "rock";
-  } else if (randomNumber === 2) {
+  } else if (computerChoice === 2) {
     return "paper";
-  } else if (randomNumber === 3) {
+  } else if (computerChoice === 3) {
     return "scissors";
   }
 }
@@ -54,33 +54,34 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function playGame() {
-  let howManyRounds = +prompt("How many rounds do you want to play?");
+  let howManyRounds;
+  do {
+    howManyRounds = +prompt("How many rounds do you want to play?");
+  } while (isNaN(howManyRounds));
   let roundsLeft;
   playerScore = 0;
   computerScore = 0;
-  for (roundsLeft = howManyRounds; roundsLeft >= 0; roundsLeft--) {
+  for (roundsLeft = howManyRounds - 1; roundsLeft >= 0; roundsLeft--) {
     let choice = prompt("What you gonna play?");
     const playerSelection = playerPlay(choice);
     const computerSelection = computerPlay();
     playRound(playerSelection, computerSelection);
-    console.log(
-      `Player score: ${playerScore} || Computer score: ${computerScore}`
-    );
+    roundResult.textContent = `Player score: ${playerScore} || Computer score: ${computerScore}`;
     roundsPara.textContent = `Rounds left: ${roundsLeft}`;
   }
-  console.log(`Total Player score: ${playerScore}
-  Total Computer score: ${computerScore}`);
+  roundResult.textContent = `Total Player score: ${playerScore}
+  Total Computer score: ${computerScore}`;
   if (playerScore > computerScore) {
-    console.log("Congratulations! You've won!");
+    gameResult.textContent = "Congratulations! You've won!";
   } else if (playerScore < computerScore) {
-    console.log("You've lost... Better luck next time!");
+    gameResult.textContent = "You've lost... Better luck next time!";
   } else {
-    console.log("It's a tie! Wanna try again? ");
+    gameResult.textContent = "It's a tie! Wanna try again? ";
   }
 }
 
 const roundsPara = document.querySelector("p.rounds");
 const startButton = document.querySelector("button.startGame");
-const roundResults = document.querySelector("p.roundResult");
-
+const roundResult = document.querySelector("p.roundResult");
+const gameResult = document.querySelector("p.gameResult");
 startButton.addEventListener("click", playGame);
