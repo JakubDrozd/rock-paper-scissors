@@ -1,19 +1,19 @@
 function playerPlay(choice) {
-  let choiceFormat = choice.toLowerCase();
-  if (!choiceFormat) {
+  let makeChoice = choice.toLowerCase();
+  if (!makeChoice) {
     alert("Error");
   } else if (
-    choiceFormat != "rock" &&
-    choiceFormat != "paper" &&
-    choiceFormat != "scissors"
+    makeChoice != "rock" &&
+    makeChoice != "paper" &&
+    makeChoice != "scissors"
   ) {
     alert(`Must be a rock, paper or scissors`);
   }
-  if (choiceFormat === "rock") {
+  if (makeChoice === "rock") {
     return "rock";
-  } else if (choiceFormat === "paper") {
+  } else if (makeChoice === "paper") {
     return "paper";
-  } else if (choiceFormat === "scissors") {
+  } else if (makeChoice === "scissors") {
     return "scissors";
   }
 }
@@ -54,14 +54,14 @@ function playRound(playerSelection, computerSelection) {
 }
 
 function playGame() {
-  let howManyRounds;
+  let roundCount;
   do {
-    howManyRounds = +prompt("How many rounds do you want to play?");
-  } while (isNaN(howManyRounds));
+    roundCount = +prompt("How many rounds do you want to play?");
+  } while (isNaN(roundCount));
   let roundsLeft;
   playerScore = 0;
   computerScore = 0;
-  for (roundsLeft = howManyRounds - 1; roundsLeft >= 0; roundsLeft--) {
+  for (roundsLeft = roundCount - 1; roundsLeft >= 0; roundsLeft--) {
     let choice = prompt("What you gonna play?");
     const playerSelection = playerPlay(choice);
     const computerSelection = computerPlay();
