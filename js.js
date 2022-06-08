@@ -1,22 +1,11 @@
-function playerPlay(choice) {
-  let makeChoice = choice.toLowerCase();
-  if (!makeChoice) {
-    alert("Error");
-  } else if (
-    makeChoice != "rock" &&
-    makeChoice != "paper" &&
-    makeChoice != "scissors"
-  ) {
-    alert(`Must be a rock, paper or scissors`);
-  }
-  if (makeChoice === "rock") {
-    return "rock";
-  } else if (makeChoice === "paper") {
-    return "paper";
-  } else if (makeChoice === "scissors") {
-    return "scissors";
-  }
-}
+const rock = document.querySelector("button.rock");
+rock.addEventListener("click", playRound);
+
+const paper = document.querySelector("button.paper");
+paper.addEventListener("click", playRound);
+
+const scissors = document.querySelector("button.scissors");
+scissors.addEventListener("click", playRound);
 
 function computerPlay() {
   let computerChoice = Math.floor(Math.random() * (4 - 1) + 1);
@@ -29,7 +18,9 @@ function computerPlay() {
   }
 }
 
-function playRound(playerSelection, computerSelection) {
+function playRound(e, computerSelection) {
+  playerSelection = e.target.className;
+  computerSelection = computerPlay();
   if (playerSelection === computerSelection) {
     console.log("It's a tie!");
   } else if (playerSelection === "rock" && computerSelection === "scissors") {
@@ -52,36 +43,3 @@ function playRound(playerSelection, computerSelection) {
     computerScore++;
   }
 }
-
-function playGame() {
-  let roundCount;
-  do {
-    roundCount = +prompt("How many rounds do you want to play?");
-  } while (isNaN(roundCount));
-  let roundsLeft;
-  playerScore = 0;
-  computerScore = 0;
-  for (roundsLeft = roundCount - 1; roundsLeft >= 0; roundsLeft--) {
-    let choice = prompt("What you gonna play?");
-    const playerSelection = playerPlay(choice);
-    const computerSelection = computerPlay();
-    playRound(playerSelection, computerSelection);
-    roundResult.textContent = `Player score: ${playerScore} || Computer score: ${computerScore}`;
-    roundsPara.textContent = `Rounds left: ${roundsLeft}`;
-  }
-  roundResult.textContent = `Total Player score: ${playerScore} ||
-  Total Computer score: ${computerScore}`;
-  if (playerScore > computerScore) {
-    gameResult.textContent = "Congratulations! You've won!";
-  } else if (playerScore < computerScore) {
-    gameResult.textContent = "You've lost... Better luck next time!";
-  } else {
-    gameResult.textContent = "It's a tie! Wanna try again? ";
-  }
-}
-
-const roundsPara = document.querySelector("p.rounds");
-const startButton = document.querySelector("button.startGame");
-const roundResult = document.querySelector("p.roundResult");
-const gameResult = document.querySelector("p.gameResult");
-startButton.addEventListener("click", playGame);
