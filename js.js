@@ -7,6 +7,8 @@ paper.addEventListener("click", playRound);
 const scissors = document.querySelector("button.scissors");
 scissors.addEventListener("click", playRound);
 
+const result = document.querySelector(".result");
+
 function computerPlay() {
   let computerChoice = Math.floor(Math.random() * (4 - 1) + 1);
   if (computerChoice === 1) {
@@ -18,6 +20,8 @@ function computerPlay() {
   }
 }
 
+computerScore = 0;
+playerScore = 0;
 function playRound(e, computerSelection) {
   playerSelection = e.target.className;
   computerSelection = computerPlay();
@@ -41,5 +45,15 @@ function playRound(e, computerSelection) {
   } else if (playerSelection === "scissors" && computerSelection === "rock") {
     console.log("You lose! Rock beats scissors");
     computerScore++;
+  }
+  result.textContent = `Player: ${playerScore} | Computer: ${computerScore}`;
+  if (playerScore >= 5) {
+    playerScore = 0;
+    computerScore = 0;
+    result.textContent = "Congratulations! You've won!";
+  } else if (computerScore >= 5) {
+    playerScore = 0;
+    computerScore = 0;
+    result.textContent = "You've lost... Better luck next time!";
   }
 }
